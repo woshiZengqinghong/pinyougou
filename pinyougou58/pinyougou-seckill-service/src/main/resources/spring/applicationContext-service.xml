@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo" xmlns:task="http://www.springframework.org/schema/task"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd">
+    <!--组件扫描@service-->
+
+    <!--<context:component-scan base-package="com.pinyougou.service"></context:component-scan>-->
+
+    <!--dubbo的配置项-->
+    <dubbo:application name="pinyougou-secKill"></dubbo:application>
+
+    <!--注册中心-->
+    <dubbo:registry protocol="zookeeper" address="192.168.25.128" port="2181"></dubbo:registry>
+
+    <!--暴露服务的端口-->
+    <dubbo:protocol name="dubbo" port="20888"></dubbo:protocol>
+
+    <!--dubbo的组件扫描  注解@service的开发-->
+    <dubbo:annotation package="com.pinyougou.seckill.service"></dubbo:annotation>
+
+    <dubbo:provider timeout="100000"></dubbo:provider>
+
+    <!--freeMarker-->
+    <bean class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer" id="freeMarkerConfigurer">
+        <property name="defaultEncoding" value="utf-8"></property>
+        <property name="templateLoaderPath" value="/WEB-INF/ftl"></property>
+    </bean>
+
+    <!--多线程管理器-->
+    <task:annotation-driven executor="taskExecutor"></task:annotation-driven>
+
+    <!--线程池-->
+    <bean class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor" id="taskExecutor">
+        <property name="corePoolSize" value="10"></property>
+        <property name="maxPoolSize" value="100"></property>
+        <property name="queueCapacity" value="200"></property>
+        <property name="keepAliveSeconds" value="300"></property>
+        <!--拒绝策略-->
+        <property name="rejectedExecutionHandler">
+            <bean class="java.util.concurrent.ThreadPoolExecutor.CallerRunsPolicy"></bean>
+        </property>
+    </bean>
+
+    <bean class="com.pinyougou.seckill.thread.CreateOrderThread"></bean>
+
+
+
+
+
+
+
+
+
+</beans>

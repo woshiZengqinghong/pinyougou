@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--redis 集群配置-->
+    <bean class="org.springframework.data.redis.connection.RedisClusterConfiguration" id="redisClusterConfiguration">
+        <constructor-arg name="clusterNodes">
+            <list>
+                <value>192.168.25.133:7001</value>
+                <value>192.168.25.133:7002</value>
+                <value>192.168.25.133:7003</value>
+                <value>192.168.25.133:7004</value>
+                <value>192.168.25.133:7005</value>
+                <value>192.168.25.133:7006</value>
+            </list>
+        </constructor-arg>
+    </bean>
+
+    <!--redisFactory-->
+    <bean class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory" id="jedisConnectionFactory">
+        <constructor-arg name="clusterConfig" ref="redisClusterConfiguration"></constructor-arg>
+    </bean>
+
+    <!--redisTemplate-->
+    <bean class="org.springframework.data.redis.core.RedisTemplate" id="redisTemplate">
+        <property name="connectionFactory" ref="jedisConnectionFactory"></property>
+    </bean>
+</beans>

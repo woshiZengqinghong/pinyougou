@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:elasticsearch="http://www.springframework.org/schema/data/elasticsearch"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/data/elasticsearch http://www.springframework.org/schema/data/elasticsearch/spring-elasticsearch.xsd">
+
+    <!--扫描dao下继承elasticSearchRepository接口的接口-->
+    <elasticsearch:repositories base-package="com.itcast.es.dao"></elasticsearch:repositories>
+    <!--elasticSearch 连接-->
+    <elasticsearch:transport-client id="client" cluster-nodes="127.0.0.1:9300" cluster-name="elasticsearch"></elasticsearch:transport-client>
+    <!--elasticSearch 模板对象-->
+    <bean id="elasticsearchTemplate" class="org.springframework.data.elasticsearch.core.ElasticsearchTemplate">
+        <constructor-arg name="client" ref="client"></constructor-arg>
+    </bean>
+</beans>
