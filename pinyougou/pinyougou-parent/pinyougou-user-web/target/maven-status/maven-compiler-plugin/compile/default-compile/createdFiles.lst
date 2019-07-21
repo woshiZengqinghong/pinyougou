@@ -1,0 +1,5 @@
+com\pinyougou\user\security\UserDetailsServiceImpl.class
+com\pinyougou\user\model\Person.class
+com\pinyougou\user\controller\LoginController.class
+com\pinyougou\user\controller\UserController.class
+com\pinyougou\user\controller\PersonController.class

@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="itheima-cas-security:war">
+    <output-path>$PROJECT_DIR$/pinyougou-parent/itheima-cas-security/target</output-path>
+    <root id="archive" name="itheima-cas-security.war">
+      <element id="artifact" artifact-name="itheima-cas-security:war exploded" />
+    </root>
+  </artifact>
+</component>
