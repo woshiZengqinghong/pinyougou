@@ -1,8 +1,0 @@
-0:0:0:0:0:0:0:1 - - [10/Jul/2019:10:55:45 +0800] "GET /index.jsp HTTP/1.1" 302 - http-bio-9002-exec-2 42
-0:0:0:0:0:0:0:1 - - [10/Jul/2019:10:55:46 +0800] "GET /index.jsp?ticket=ST-3-Cl7LvkLteOe9JeK2t0q3-cas01.example.org HTTP/1.1" 500 4199 http-bio-9002-exec-3 1036
-0:0:0:0:0:0:0:1 - - [10/Jul/2019:10:55:46 +0800] "GET /favicon.ico HTTP/1.1" 302 - http-bio-9002-exec-1 1
-0:0:0:0:0:0:0:1 - - [10/Jul/2019:10:55:47 +0800] "GET /favicon.ico?ticket=ST-4-2kADxsfLCeAPfvKN1AvD-cas01.example.org HTTP/1.1" 500 4199 http-bio-9002-exec-4 1030
-0:0:0:0:0:0:0:1 - - [10/Jul/2019:10:59:58 +0800] "GET /index.jsp HTTP/1.1" 302 - http-bio-9002-exec-1 45
-0:0:0:0:0:0:0:1 - - [10/Jul/2019:10:59:58 +0800] "GET /index.jsp?ticket=ST-6-NmRde2VA7S0TgUbasqlI-cas01.example.org HTTP/1.1" 302 - http-bio-9002-exec-3 127
-0:0:0:0:0:0:0:1 - - [10/Jul/2019:10:59:59 +0800] "GET /index.jsp HTTP/1.1" 200 132 http-bio-9002-exec-4 647
-0:0:0:0:0:0:0:1 - - [10/Jul/2019:10:59:59 +0800] "GET /favicon.ico HTTP/1.1" 404 973 http-bio-9002-exec-5 3

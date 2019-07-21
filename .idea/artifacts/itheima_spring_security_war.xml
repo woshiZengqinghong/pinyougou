@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="war" name="itheima-spring-security:war">
-    <output-path>$PROJECT_DIR$/pinyougou-parent/itheima-spring-security/target</output-path>
-    <root id="archive" name="itheima-spring-security.war">
-      <element id="artifact" artifact-name="itheima-spring-security:war exploded" />
-    </root>
-  </artifact>
-</component>

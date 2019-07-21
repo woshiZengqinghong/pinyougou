@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="war" name="pinyougou-cart-web:war">
-    <output-path>$PROJECT_DIR$/pinyougou-parent/pinyougou-cart-web/target</output-path>
-    <root id="archive" name="pinyouogu-cart-web.war">
-      <element id="artifact" artifact-name="pinyougou-cart-web:war exploded" />
-    </root>
-  </artifact>
-</component>

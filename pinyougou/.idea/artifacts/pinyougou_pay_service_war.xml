@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="war" name="pinyougou-pay-service:war">
-    <output-path>$PROJECT_DIR$/pinyougou-parent/pinyougou-pay-service/target</output-path>
-    <root id="archive" name="pinyougou-pay-service.war">
-      <element id="artifact" artifact-name="pinyougou-pay-service:war exploded" />
-    </root>
-  </artifact>
-</component>
