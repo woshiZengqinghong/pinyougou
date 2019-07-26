@@ -12,6 +12,7 @@
     <link rel="stylesheet" type="text/css" href="css/pages-seckillOrder.css" />
 </head>
 
+<div id="app">
 <body>
     <!-- 头部栏位 -->
     <!--页面顶部-->
@@ -167,8 +168,8 @@ $(function(){
                     <div class="person-info">
                         <div class="person-photo"><img src="img/_/photo.png" alt=""></div>
                         <div class="person-account">
-                            <span class="name">Michelle</span>
-                            <span class="safe">账户安全</span>
+                            <span class="name">{{loginName}}</span>
+                            <span class="safe"><a href="/logout/cas">退出登录</a></span>
                         </div>
                         <div class="clearfix"></div>
                     </div>
@@ -422,7 +423,9 @@ $(function(){
 	</div>
 </div>
 <!--页面底部END-->
-
-undefined
+</div>
+<script src="plugins/vue/vue.js"></script>
+<script src="plugins/axios/axios.js"></script>
+<script src="js/controller/userController.js"></script>
 
 </html>

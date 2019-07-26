@@ -141,11 +141,4 @@ public class UserController {
     }
 
 
-    @RequestMapping("/search")
-    public PageInfo<TbUser> findPage(@RequestParam(value = "pageNo", defaultValue = "1", required = true) Integer pageNo,
-                                     @RequestParam(value = "pageSize", defaultValue = "10", required = true) Integer pageSize,
-                                     @RequestBody TbUser user) {
-        return userService.findPage(pageNo, pageSize, user);
-    }
-
 }

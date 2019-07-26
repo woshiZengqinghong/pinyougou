@@ -1,9 +1,15 @@
 package com.pinyougou.user.service.impl;
 
+import com.pinyougou.mapper.TbOrderItemMapper;
+import com.pinyougou.mapper.TbOrderMapper;
+import com.pinyougou.mapper.TbSellerMapper;
+import com.pinyougou.pojo.TbOrder;
+import com.pinyougou.pojo.TbOrderItem;
+import com.pinyougou.pojo.TbSeller;
+import entity.UserOrderList;
 import com.pinyougou.user.service.UserService;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.rocketmq.client.producer.DefaultMQProducer;
-import org.apache.rocketmq.common.message.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.alibaba.fastjson.JSON;
@@ -13,14 +19,14 @@ import com.pinyougou.core.service.CoreServiceImpl;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
-import tk.mybatis.mapper.entity.Example;
 
 import com.pinyougou.mapper.TbUserMapper;
 import com.pinyougou.pojo.TbUser;
+import tk.mybatis.mapper.entity.Example;
 
-import java.util.HashMap;
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 
 /**
@@ -39,6 +45,14 @@ public class UserServiceImpl extends CoreServiceImpl<TbUser> implements UserServ
 
     @Autowired
     private RedisTemplate redisTemplate;
+
+    @Autowired
+    private TbOrderMapper orderMapper;
+    @Autowired
+    private TbOrderItemMapper orderItemMapper;
+    @Autowired
+    private TbSellerMapper sellerMapper;
+
 
     //短信模板
     @Value("${sign_name}")
@@ -67,75 +81,41 @@ public class UserServiceImpl extends CoreServiceImpl<TbUser> implements UserServ
     }
 
 
-    @Override
-    public PageInfo<TbUser> findPage(Integer pageNo, Integer pageSize, TbUser user) {
-        PageHelper.startPage(pageNo, pageSize);
+    /*
+    * 查询我的订单列表
+    * */
+    public List<UserOrderList> findOrderList(TbUser user) {
 
-        Example example = new Example(TbUser.class);
-        Example.Criteria criteria = example.createCriteria();
-
+        List<UserOrderList> all = new ArrayList<>();
+        //查询该买家的所有订单
+        TbOrder tbOrder = new TbOrder();
         if (user != null) {
             if (StringUtils.isNotBlank(user.getUsername())) {
-                criteria.andLike("username", "%" + user.getUsername() + "%");
-                //criteria.andUsernameLike("%"+user.getUsername()+"%");
+                tbOrder.setUserId(user.getUsername());
+            }else {
+                System.out.println("user==null?????");
+                return null;
             }
-            if (StringUtils.isNotBlank(user.getPassword())) {
-                criteria.andLike("password", "%" + user.getPassword() + "%");
-                //criteria.andPasswordLike("%"+user.getPassword()+"%");
-            }
-            if (StringUtils.isNotBlank(user.getPhone())) {
-                criteria.andLike("phone", "%" + user.getPhone() + "%");
-                //criteria.andPhoneLike("%"+user.getPhone()+"%");
-            }
-            if (StringUtils.isNotBlank(user.getEmail())) {
-                criteria.andLike("email", "%" + user.getEmail() + "%");
-                //criteria.andEmailLike("%"+user.getEmail()+"%");
-            }
-            if (StringUtils.isNotBlank(user.getSourceType())) {
-                criteria.andLike("sourceType", "%" + user.getSourceType() + "%");
-                //criteria.andSourceTypeLike("%"+user.getSourceType()+"%");
-            }
-            if (StringUtils.isNotBlank(user.getNickName())) {
-                criteria.andLike("nickName", "%" + user.getNickName() + "%");
-                //criteria.andNickNameLike("%"+user.getNickName()+"%");
-            }
-            if (StringUtils.isNotBlank(user.getName())) {
-                criteria.andLike("name", "%" + user.getName() + "%");
-                //criteria.andNameLike("%"+user.getName()+"%");
-            }
-            if (StringUtils.isNotBlank(user.getStatus())) {
-                criteria.andLike("status", "%" + user.getStatus() + "%");
-                //criteria.andStatusLike("%"+user.getStatus()+"%");
-            }
-            if (StringUtils.isNotBlank(user.getHeadPic())) {
-                criteria.andLike("headPic", "%" + user.getHeadPic() + "%");
-                //criteria.andHeadPicLike("%"+user.getHeadPic()+"%");
-            }
-            if (StringUtils.isNotBlank(user.getQq())) {
-                criteria.andLike("qq", "%" + user.getQq() + "%");
-                //criteria.andQqLike("%"+user.getQq()+"%");
-            }
-            if (StringUtils.isNotBlank(user.getIsMobileCheck())) {
-                criteria.andLike("isMobileCheck", "%" + user.getIsMobileCheck() + "%");
-                //criteria.andIsMobileCheckLike("%"+user.getIsMobileCheck()+"%");
-            }
-            if (StringUtils.isNotBlank(user.getIsEmailCheck())) {
-                criteria.andLike("isEmailCheck", "%" + user.getIsEmailCheck() + "%");
-                //criteria.andIsEmailCheckLike("%"+user.getIsEmailCheck()+"%");
-            }
-            if (StringUtils.isNotBlank(user.getSex())) {
-                criteria.andLike("sex", "%" + user.getSex() + "%");
-                //criteria.andSexLike("%"+user.getSex()+"%");
-            }
-
         }
-        List<TbUser> all = userMapper.selectByExample(example);
-        PageInfo<TbUser> info = new PageInfo<TbUser>(all);
-        //序列化再反序列化
-        String s = JSON.toJSONString(info);
-        PageInfo<TbUser> pageInfo = JSON.parseObject(s, PageInfo.class);
+        List<TbOrder> tbOrderList = orderMapper.select(tbOrder);
+        if (tbOrderList != null && tbOrderList.size()>0) {
+            //查询每个订单号对应的所有产品
+            for (TbOrder order : tbOrderList) {
+                UserOrderList userOrderList = new UserOrderList();
+                userOrderList.setOrder(order);
 
-        return pageInfo;
+                TbOrderItem tbOrderItem = new TbOrderItem();
+                tbOrderItem.setOrderId(order.getOrderId());
+                List<TbOrderItem> orderItemList = orderItemMapper.select(tbOrderItem);
+                userOrderList.setOrderItemList(orderItemList);
+                //查询商家名
+                TbSeller seller = sellerMapper.selectByPrimaryKey(order.getSellerId());
+                userOrderList.setSellerName(seller.getNickName());
+                all.add(userOrderList);
+            }
+        }
+        System.out.println(all);
+        return all;
     }
 
     /***

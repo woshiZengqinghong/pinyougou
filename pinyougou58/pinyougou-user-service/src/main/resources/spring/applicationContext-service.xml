@@ -12,7 +12,7 @@
     <dubbo:application name="pinyougou-user"></dubbo:application>
 
     <!--注册中心-->
-    <dubbo:registry protocol="zookeeper" address="192.168.25.128" port="2181"></dubbo:registry>
+    <dubbo:registry protocol="zookeeper" address="192.168.25.133" port="2181"></dubbo:registry>
 
     <!--暴露服务的端口-->
     <dubbo:protocol name="dubbo" port="20884"></dubbo:protocol>

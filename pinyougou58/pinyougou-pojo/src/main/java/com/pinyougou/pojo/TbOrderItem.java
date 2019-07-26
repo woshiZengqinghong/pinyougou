@@ -235,4 +235,20 @@ public class TbOrderItem implements Serializable {
     public void setSellerId(String sellerId) {
         this.sellerId = sellerId;
     }
+
+    @Override
+    public String toString() {
+        return "TbOrderItem{" +
+                "id=" + id +
+                ", itemId=" + itemId +
+                ", goodsId=" + goodsId +
+                ", orderId=" + orderId +
+                ", title='" + title + '\'' +
+                ", price=" + price +
+                ", num=" + num +
+                ", totalFee=" + totalFee +
+                ", picPath='" + picPath + '\'' +
+                ", sellerId='" + sellerId + '\'' +
+                '}';
+    }
 }
