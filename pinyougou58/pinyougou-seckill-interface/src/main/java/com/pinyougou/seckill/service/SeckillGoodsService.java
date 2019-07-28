@@ -1,11 +1,12 @@
 package com.pinyougou.seckill.service;
-import java.util.List;
-import java.util.Map;
-
-import com.pinyougou.pojo.TbSeckillGoods;
 
 import com.github.pagehelper.PageInfo;
 import com.pinyougou.core.service.CoreService;
+import com.pinyougou.pojo.TbSeckillGoods;
+
+import java.util.List;
+import java.util.Map;
+
 /**
  * 服务层接口
  * @author Administrator
