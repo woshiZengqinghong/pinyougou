@@ -18,6 +18,7 @@
     <http use-expressions="false" entry-point-ref="casProcessingFilterEntryPoint">
         <intercept-url pattern="/**" access="ROLE_USER"/>
         <intercept-url pattern="/favicon.ico" access="IS_AUTHENTICATED_ANONYMOUSLY"></intercept-url>
+        <intercept-url pattern="/footmark/add.shtml" access="IS_AUTHENTICATED_ANONYMOUSLY"></intercept-url>
         <csrf disabled="true"/>
         <!-- custom-filter为过滤器， position 表示将过滤器放在指定的位置上，before表示放在指定位置之前  ，after表示放在指定的位置之后  -->
         <custom-filter ref="casAuthenticationFilter" position="CAS_FILTER"/>

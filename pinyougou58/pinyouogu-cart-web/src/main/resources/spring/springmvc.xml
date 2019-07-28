@@ -39,7 +39,7 @@
     <!--dubbo的配置(消费者端)-->
     <dubbo:application name="pinyougou-cart-web"></dubbo:application>
 
-    <dubbo:registry protocol="zookeeper" address="192.168.25.128" port="2181"></dubbo:registry>
+    <dubbo:registry protocol="zookeeper" address="192.168.25.133" port="2181"></dubbo:registry>
 
     <!--dubbo的组件扫描 注解的开发-->
     <dubbo:annotation package="com.pinyougou.cart.controller"></dubbo:annotation>

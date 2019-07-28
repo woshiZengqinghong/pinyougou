@@ -21,14 +21,7 @@ public interface UserService extends CoreService<TbUser> {
 	 * @return
 	 */
 	 PageInfo<TbUser> findPage(Integer pageNo, Integer pageSize);
-	
-	
 
-	/**
-	 *查询所有订单
-	 * @return
-	 */
-	List<UserOrderList> findOrderList(TbUser User);
 
 
 	/***

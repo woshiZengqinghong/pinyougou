@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.pinyougou.common.util.PhoneFormatCheckUtils;
 import com.pinyougou.user.service.UserService;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.*;
 import com.alibaba.dubbo.config.annotation.Reference;
@@ -115,12 +116,17 @@ public class UserController {
     /**
      * 获取实体
      *
-     * @param id
      * @return
      */
-    @RequestMapping("/findOne/{id}")
-    public TbUser findOne(@PathVariable(value = "id") Long id) {
-        return userService.findOne(id);
+    @RequestMapping("/findOne")
+    public TbUser findOne() {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        TbUser tbUser = userService.findOne(username);
+        System.out.println(tbUser.getUsername());
+        System.out.println(tbUser.getCreated());
+        System.out.println(tbUser.getStatus());
+        System.out.println(tbUser.getProvince());
+        return tbUser;
     }
 
     /**

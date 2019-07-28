@@ -62,13 +62,14 @@ public class CartController {
      * @param response
      * @return
      */
-    @CrossOrigin(origins = {"http://localhost:18095"},allowCredentials = "true")
+    @CrossOrigin(origins = {"http://localhost:18095","http://localhost:9106"},allowCredentials = "true")
     @RequestMapping("/addGoodsToCartList")
     public Result addGoodsToCartList(Long itemId, Integer num, HttpServletRequest request, HttpServletResponse response){
         try {
             //判断用户是否登录
             String username = SecurityContextHolder.getContext().getAuthentication().getName();
             if ("anonymousUser".equals(username)) {
+                System.out.println("未登录");
                 //未登录  cookie 中取出 List<Cart>
                 List<Cart> oldCookieCartList = getCookieCartList(request);
                 //将数据存入List<Cart> 集合
@@ -81,6 +82,7 @@ public class CartController {
                 CookieUtil.setCookie(request,response,"cartList",newCookieCartStr,-1,true);  // 7*24*3600
             }else {
                 //登录 redis 中取出数据 List<Cart>
+                System.out.println("已登录");
                 List<Cart> oldRedisCartList = cartService.getCartListFromRedis(username);
                 if (oldRedisCartList==null) {
                     oldRedisCartList = new ArrayList<>();

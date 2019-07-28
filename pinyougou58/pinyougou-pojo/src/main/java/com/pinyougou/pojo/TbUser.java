@@ -59,10 +59,10 @@ public class TbUser implements Serializable {
     private String nickName;
 
     /**
-     * 真实姓名
+     * 职业
      */
-    @Column(name = "name")
-    private String name;
+    @Column(name = "job")
+    private String job;
 
     /**
      * 使用状态（Y正常 N非正常）
@@ -107,22 +107,22 @@ public class TbUser implements Serializable {
     private String sex;
 
     /**
-     * 会员等级
+     * 省份
      */
-    @Column(name = "user_level")
-    private Integer userLevel;
+    @Column(name = "province")
+    private String province;
 
     /**
-     * 积分
+     * 城市
      */
-    @Column(name = "points")
-    private Integer points;
+    @Column(name = "city")
+    private String city;
 
     /**
-     * 经验值
+     * 区县
      */
-    @Column(name = "experience_value")
-    private Integer experienceValue;
+    @Column(name = "district")
+    private String district;
 
     /**
      * 生日
@@ -297,17 +297,17 @@ public class TbUser implements Serializable {
      *
      * @return name - 真实姓名
      */
-    public String getName() {
-        return name;
+    public String getJob() {
+        return job;
     }
 
     /**
      * 设置真实姓名
      *
-     * @param name 真实姓名
+     * @param job 真实姓名
      */
-    public void setName(String name) {
-        this.name = name;
+    public void setJob(String job) {
+        this.job = job;
     }
 
     /**
@@ -441,53 +441,53 @@ public class TbUser implements Serializable {
      *
      * @return user_level - 会员等级
      */
-    public Integer getUserLevel() {
-        return userLevel;
+    public String getProvince() {
+        return province;
     }
 
     /**
      * 设置会员等级
      *
-     * @param userLevel 会员等级
+     * @param province 会员等级
      */
-    public void setUserLevel(Integer userLevel) {
-        this.userLevel = userLevel;
+    public void setProvince(String province) {
+        this.province = province;
     }
 
     /**
      * 获取积分
      *
-     * @return points - 积分
+     * @return city - 积分
      */
-    public Integer getPoints() {
-        return points;
+    public String getCity() {
+        return city;
     }
 
     /**
      * 设置积分
      *
-     * @param points 积分
+     * @param city 积分
      */
-    public void setPoints(Integer points) {
-        this.points = points;
+    public void setCity(String city) {
+        this.city = city;
     }
 
     /**
      * 获取经验值
      *
-     * @return experience_value - 经验值
+     * @return district - 经验值
      */
-    public Integer getExperienceValue() {
-        return experienceValue;
+    public String getDistrict() {
+        return district;
     }
 
     /**
      * 设置经验值
      *
-     * @param experienceValue 经验值
+     * @param district 经验值
      */
-    public void setExperienceValue(Integer experienceValue) {
-        this.experienceValue = experienceValue;
+    public void setDistrict(String district) {
+        this.district = district;
     }
 
     /**

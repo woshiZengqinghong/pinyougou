@@ -12,6 +12,26 @@
     <link rel="stylesheet" type="text/css" href="css/pages-seckillOrder.css" />
 </head>
 
+<script type="text/javascript" src="js/plugins/jquery/jquery.min.js"></script>
+<script type="text/javascript">
+	$(function(){
+		$("#service").hover(function(){
+			$(".service").show();
+		},function(){
+			$(".service").hide();
+		});
+		$("#shopcar").hover(function(){
+			$("#shopcarlist").show();
+		},function(){
+			$("#shopcarlist").hide();
+		});
+
+	})
+</script>
+<script type="text/javascript" src="js/plugins/jquery.easing/jquery.easing.min.js"></script>
+<script type="text/javascript" src="js/plugins/sui/sui.min.js"></script>
+<script type="text/javascript" src="js/plugins/jquery-placeholder/jquery.placeholder.min.js"></script>
+<script type="text/javascript" src="js/widget/nav.js"></script>
 
 <div id="app">
 <body>
@@ -124,26 +144,7 @@
 	</div>
 </div>
 
-<script type="text/javascript" src="js/plugins/jquery/jquery.min.js"></script>
-<script type="text/javascript">
-$(function(){
-	$("#service").hover(function(){
-		$(".service").show();
-	},function(){
-		$(".service").hide();
-	});
-	$("#shopcar").hover(function(){
-		$("#shopcarlist").show();
-	},function(){
-		$("#shopcarlist").hide();
-	});
 
-})
-</script>
-<script type="text/javascript" src="js/plugins/jquery.easing/jquery.easing.min.js"></script>
-<script type="text/javascript" src="js/plugins/sui/sui.min.js"></script>
-<script type="text/javascript" src="js/plugins/jquery-placeholder/jquery.placeholder.min.js"></script>
-<script type="text/javascript" src="js/widget/nav.js"></script>
 </body>
     <!--header-->
     <div id="account">
@@ -205,7 +206,8 @@ $(function(){
                         </div>
 
                         <div class="order-detail">
-                            <div class="orders">
+                            <div class="orders" v-for="(orders,index1) in list">
+								<h3 color="red">{{msg}}</h3>
                                 <div class="choose-order">
                                     <label data-toggle="checkbox" class="checkbox-pretty checked">
                                         <input type="checkbox" checked="checked"><span>全选</span>
@@ -220,35 +222,36 @@ $(function(){
                                     </div>
                                 </div>
 
-                                <div class="choose-title">
-                                    <label data-toggle="checkbox" class="checkbox-pretty ">
-                                           <input type="checkbox" checked="checked"><span>2017-02-11 11:59　订单编号：7867473872181848  店铺：哇哈哈 <a>和我联系</a></span>
-                                     </label>
-                                    <a class="sui-btn btn-info share-btn">分享</a>
-                                </div>
+								<div class="choose-title">
+									<label data-toggle="checkbox" class="checkbox-pretty ">
+										<input type="checkbox" checked="checked"><span>{{orders.order.createTime}}　订单编号：{{orders.order.orderId}}  店铺：{{orders.sellerName}} <a>和我联系</a></span>
+									</label>
+									<a class="sui-btn btn-info share-btn">分享</a>
+								</div>
                                 <table class="sui-table table-bordered order-datatable">
 
                                     <tbody>
-                                        <tr>
-                                            <td width="35%">
-                                                <div class="typographic"><img src="img/goods.png" />
-                                                    <a href="#" class="block-text">包邮 正品玛姬儿压缩面膜无纺布纸膜100粒 送泡瓶面膜刷喷瓶 新款</a>
-                                                    <span class="guige">规格：温泉喷雾150ml</span>
-                                                </div>
-                                            </td>
-                                            <td width="5%" class="center">
-                                                <ul class="unstyled">
-                                                    <li class="o-price">¥599.00</li>
-                                                    <li>¥299.00</li>
-                                                </ul>
-                                            </td>
-                                            <td width="5%" class="center">1</td>
+                                        <tr v-for="(items,index2) in orders.orderItemList">
+											<td width="35%">
+												<div class="typographic"><img :src="items.picPath" />
+													<a href="#" class="block-text">{{items.title}}</a>
+													<span class="guige">规格：{{items.title.substring(items.title.indexOf(' '))}}</span>
+												</div>
+											</td>
+											<td width="5%" class="center">
+												<ul class="unstyled">
+													<li class="o-price">¥{{items.price}}</li>
+													<li>¥{{items.totalFee}}</li>
+												</ul>
+											</td>
+											<td width="5%" class="center">{{items.num}}</td>
+
                                             <td width="8%" class="center"></td>
                                             <td width="10%" class="center">
-                                                <ul class="unstyled">
-                                                    <li>¥299.00</li>
-                                                    <li>（含运费：￥0.00）</li>
-                                                </ul>
+												<ul class="unstyled">
+													<li>¥{{orders.order.payment}}</li>
+													<li>（含运费：￥{{orders.order.postFee}}）</li>
+												</ul>
                                             </td>
                                             <td width="10%" class="center">
                                                 <ul class="unstyled">
@@ -260,7 +263,7 @@ $(function(){
                                             </td>
                                             <td width="10%" class="center">
                                                 <ul class="unstyled">
-                                                    <li><a href="#" class="sui-btn btn-info">立即付款</a></li>
+                                                    <li><a class="sui-btn btn-info" @click="buyThis(index1)">立即付款</a></li>
                                                     <li><a href="#">取消订单</a></li>
                                                 </ul>
                                             </td>
@@ -280,12 +283,9 @@ $(function(){
                                     <ul>
                                         <li class="prev disabled"><a href="#">«上一页</a></li>
                                         <li class="active"><a href="#">1</a></li>
-                                        <li><a href="#">2</a></li>
-                                        <li><a href="#">3</a></li>
-                                        <li class="dotted"><span>...</span></li>
-                                        <li class="next"><a href="#">下一页»</a></li>
+                                        <li class="next disabled"><a href="#">下一页»</a></li>
                                     </ul>
-                                    <div><span>共10页&nbsp;</span><span>
+                                    <div><span>共1页&nbsp;</span><span>
                                             到
                                             <input type="text" class="page-num"><button class="page-confirm" onclick="alert(1)">确定</button>
                                             页</span></div>
@@ -522,5 +522,5 @@ $(function(){
 </div>
 <script src="plugins/vue/vue.js"></script>
 <script src="plugins/axios/axios.js"></script>
-<script src="js/controller/userController.js"></script>
+<script src="js/controller/userPayController.js"></script>
 </html>

@@ -4,7 +4,14 @@
         pages:15,
         pageNo:1,
         list:[],
-        entity:{},
+        entity:{province:'北京市',city:'北京市市辖区',district:'东城区',job:'请选择'},
+        jobs:['程序员','产品经理','UI','总经理'],
+        birthYear:'',
+        birthMonth:'',
+        birthDay:'',
+        province:'',
+        city:'',
+        district:'',
         len:1,
         smsCode:'',
         timeStringPay:'',
@@ -108,6 +115,42 @@
             }
             return days+'天'+hours+'时'+minutes+'分'+seconds+'秒';
         },
+        //方法 是用于图片上传使用 点击上传的按钮的时候调用
+        uploadFile:function () {
+            //创建一个表单的对象
+            var formData=new FormData();
+
+            //添加字段    formData.append('file'           ==> <input type="file"  name="file" value="文件本身">
+            //            file.files[0]    第一个file 指定的时候 标签中的id   后面的files[0] 表示获取 选中的第一张文件 对象。File
+            formData.append('up_img_WU_FILE_0', file.files[0]);
+
+            axios({
+                url: 'http://localhost:9110/upload/uploadFile.shtml',
+                //数据  表单数据
+                data: formData,
+                method: 'post',
+                //设置表单提交的数据类型
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                },
+                //开启跨域请求携带相关认证信息
+                withCredentials:true
+            }).then(function (response) {
+                //文件上传成功
+                if(response.data.success){
+                    console.log(response.data.message);
+                    app.image_entity.url=response.data.message;
+                }else{
+                    //上传失败
+                    alert(response.data.message);
+                }
+            })
+        },
+
+        fillIn:function (job) {
+            this.entity.job=job;
+        },
+
         //该方法只要不在生命周期的
         add: function () {
             axios.post('/user/add/' + this.smsCode + '.shtml', this.entity).then(function (response) {
@@ -123,7 +166,7 @@
             axios.post('/user/update.shtml', this.entity).then(function (response) {
                 console.log(response);
                 if (response.data.success) {
-                    app.searchList(1);
+                    alert("更新成功")
                 }
             }).catch(function (error) {
                 console.log("1231312131321");
@@ -136,13 +179,31 @@
                 this.add();
             }
         },
-        findOne: function (id) {
-            axios.get('/user/findOne/' + id + '.shtml').then(function (response) {
-                app.entity = response.data;
+        //查看用户信息数据回显
+        findOne: function () {
+            axios.get('/user/findOne.shtml').then(function (response) {
+                //app.entity = response.data;
+                var date = new Date();
+                date.setTime(response.data.birthday);
+                app.birthYear = date.getFullYear();
+                app.birthMonth = date.getMonth()+1;
+                app.birthDay = date.getDate();
+                app.entity.province = response.data.province;
+                app.entity.city = response.data.city;
+                app.entity.district = response.data.district;
+                // this.$set(app.entity,'province',response.data.province);
+                // this.$set(app.entity,'city',response.data.city);
+                // this.$set(app.entity,'province',response.data.province);
+
+
             }).catch(function (error) {
                 console.log("1231312131321");
-            });
+            }).finally(
+
+
+            );
         },
+
         dele: function () {
             axios.post('/user/delete.shtml', this.ids).then(function (response) {
                 console.log(response);
@@ -159,7 +220,17 @@
     //钩子函数 初始化了事件和
     created: function () {
         this.getName();
-        this.findOrderList();
-    }
+        url = window.location.href
+        if (url.indexOf("home-index") != -1) {
+            this.findOrderList();
+        }
+        if (url.indexOf("info") != -1) {
+            this.findOne();
+        }
+    },
 
 })
+
+
+
+

@@ -36,7 +36,14 @@ import java.util.List;
  */
 @Service
 public class UserServiceImpl extends CoreServiceImpl<TbUser> implements UserService {
+    @Override
+    public TbUser findOne(Object username) {
+        TbUser user = new TbUser();
+        user.setUsername((String) username);
+        TbUser tbUser = userMapper.selectOne(user);
 
+        return tbUser;
+    }
 
     private TbUserMapper userMapper;
 
@@ -81,42 +88,6 @@ public class UserServiceImpl extends CoreServiceImpl<TbUser> implements UserServ
     }
 
 
-    /*
-    * 查询我的订单列表
-    * */
-    public List<UserOrderList> findOrderList(TbUser user) {
-
-        List<UserOrderList> all = new ArrayList<>();
-        //查询该买家的所有订单
-        TbOrder tbOrder = new TbOrder();
-        if (user != null) {
-            if (StringUtils.isNotBlank(user.getUsername())) {
-                tbOrder.setUserId(user.getUsername());
-            }else {
-                System.out.println("user==null?????");
-                return null;
-            }
-        }
-        List<TbOrder> tbOrderList = orderMapper.select(tbOrder);
-        if (tbOrderList != null && tbOrderList.size()>0) {
-            //查询每个订单号对应的所有产品
-            for (TbOrder order : tbOrderList) {
-                UserOrderList userOrderList = new UserOrderList();
-                userOrderList.setOrder(order);
-
-                TbOrderItem tbOrderItem = new TbOrderItem();
-                tbOrderItem.setOrderId(order.getOrderId());
-                List<TbOrderItem> orderItemList = orderItemMapper.select(tbOrderItem);
-                userOrderList.setOrderItemList(orderItemList);
-                //查询商家名
-                TbSeller seller = sellerMapper.selectByPrimaryKey(order.getSellerId());
-                userOrderList.setSellerName(seller.getNickName());
-                all.add(userOrderList);
-            }
-        }
-        System.out.println(all);
-        return all;
-    }
 
     /***
      * 生成验证码 发送验证码

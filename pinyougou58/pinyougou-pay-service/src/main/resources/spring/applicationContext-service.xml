@@ -7,7 +7,7 @@
     <!--配置dubbo的配置项-->
     <dubbo:application name="pinyougou-pay"></dubbo:application>
 
-    <dubbo:registry protocol="zookeeper" address="192.168.25.128" port="2181"></dubbo:registry>
+    <dubbo:registry protocol="zookeeper" address="192.168.25.133" port="2181"></dubbo:registry>
     <!--增加暴露服务的端口-->
     <dubbo:protocol name="dubbo" port="20887"></dubbo:protocol>
 

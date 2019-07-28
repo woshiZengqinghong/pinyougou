@@ -26,7 +26,7 @@ public class UploadFileController {
      */
     @RequestMapping("/uploadFile")
     //支持跨域
-    @CrossOrigin(origins = {"http://localhost:18088","http://localhost:18089"},allowCredentials = "true")
+    @CrossOrigin(origins = {"http://localhost:18088","http://localhost:18089","http://localhost:9106"},allowCredentials = "true")
     public Result uploadFile(MultipartFile file){
         try {
             //1.获取文件的字节数组
