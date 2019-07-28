@@ -27,7 +27,6 @@ import com.pinyougou.sellergoods.service.SellerService;
 @Service
 public class SellerServiceImpl extends CoreServiceImpl<TbSeller>  implements SellerService {
 
-	
 	private TbSellerMapper sellerMapper;
 
 	@Autowired
@@ -50,28 +49,28 @@ public class SellerServiceImpl extends CoreServiceImpl<TbSeller>  implements Sel
 	}
 
 	@Override
-    public PageInfo<TbSeller> findPage(Integer pageNo, Integer pageSize) {
-        PageHelper.startPage(pageNo,pageSize);
-        List<TbSeller> all = sellerMapper.selectAll();
-        PageInfo<TbSeller> info = new PageInfo<TbSeller>(all);
+	public PageInfo<TbSeller> findPage(Integer pageNo, Integer pageSize) {
+		PageHelper.startPage(pageNo,pageSize);
+		List<TbSeller> all = sellerMapper.selectAll();
+		PageInfo<TbSeller> info = new PageInfo<TbSeller>(all);
 
-        //序列化再反序列化
-        String s = JSON.toJSONString(info);
-        PageInfo<TbSeller> pageInfo = JSON.parseObject(s, PageInfo.class);
-        return pageInfo;
-    }
+		//序列化再反序列化
+		String s = JSON.toJSONString(info);
+		PageInfo<TbSeller> pageInfo = JSON.parseObject(s, PageInfo.class);
+		return pageInfo;
+	}
 
-	
-	
 
-	 @Override
-    public PageInfo<TbSeller> findPage(Integer pageNo, Integer pageSize, TbSeller seller) {
-        PageHelper.startPage(pageNo,pageSize);
 
-        Example example = new Example(TbSeller.class);
-        Example.Criteria criteria = example.createCriteria();
 
-        if(seller!=null){			
+	@Override
+	public PageInfo<TbSeller> findPage(Integer pageNo, Integer pageSize, TbSeller seller) {
+		PageHelper.startPage(pageNo,pageSize);
+
+		Example example = new Example(TbSeller.class);
+		Example.Criteria criteria = example.createCriteria();
+
+		if(seller!=null){
 			if(StringUtils.isNotBlank(seller.getSellerId())){
 				criteria.andLike("sellerId","%"+seller.getSellerId()+"%");
 				//criteria.andSellerIdLike("%"+seller.getSellerId()+"%");
@@ -160,16 +159,16 @@ public class SellerServiceImpl extends CoreServiceImpl<TbSeller>  implements Sel
 				criteria.andLike("bankName","%"+seller.getBankName()+"%");
 				//criteria.andBankNameLike("%"+seller.getBankName()+"%");
 			}
-	
-		}
-        List<TbSeller> all = sellerMapper.selectByExample(example);
-        PageInfo<TbSeller> info = new PageInfo<TbSeller>(all);
-        //序列化再反序列化
-        String s = JSON.toJSONString(info);
-        PageInfo<TbSeller> pageInfo = JSON.parseObject(s, PageInfo.class);
 
-        return pageInfo;
-    }
+		}
+		List<TbSeller> all = sellerMapper.selectByExample(example);
+		PageInfo<TbSeller> info = new PageInfo<TbSeller>(all);
+		//序列化再反序列化
+		String s = JSON.toJSONString(info);
+		PageInfo<TbSeller> pageInfo = JSON.parseObject(s, PageInfo.class);
+
+		return pageInfo;
+	}
 
 	@Override
 	public void updateStatus(String sellerId, String status) {
