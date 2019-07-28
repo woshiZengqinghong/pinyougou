@@ -15,7 +15,6 @@ import org.apache.rocketmq.client.producer.DefaultMQProducer;
 import org.apache.rocketmq.client.producer.SendResult;
 import org.apache.rocketmq.common.message.Message;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
@@ -46,7 +45,7 @@ public class GoodsController {
 	 * @return
 	 */
 	@RequestMapping("/findAll")
-	public List<TbGoods> findAll(){			
+	public List<TbGoods> findAll(){
 		return goodsService.findAll();
 	}
 	
@@ -120,7 +119,7 @@ public class GoodsController {
 				List<TbItem> tbItemList = goodsService.findTbItemListByIds(ids);
 				//设置message-- topic tag key body methods
 				MessageInfo messageInfo = new MessageInfo(tbItemList,"goodsUpdate",
-						"goods_update_tag","updateStatus",MessageInfo.METHOD_UPDATE);
+						"goods_update_tag","updateStatus", MessageInfo.METHOD_UPDATE);
 
 				Message message = new Message(messageInfo.getTopic(),messageInfo.getTags(),
 						messageInfo.getKeys(),JSON.toJSONString(messageInfo).getBytes());
@@ -165,7 +164,7 @@ public class GoodsController {
 			//消息队列
 			//设置message
 			MessageInfo messageInfo = new MessageInfo(ids,"Goods_Topic","goods_delete_tag",
-															"delete",MessageInfo.METHOD_DELETE);
+															"delete", MessageInfo.METHOD_DELETE);
 
 			Message message = new Message(messageInfo.getTopic(),messageInfo.getTags(),
 					messageInfo.getKeys(),JSON.toJSONString(messageInfo).getBytes());

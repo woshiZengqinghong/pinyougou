@@ -1,14 +1,15 @@
 package com.pinyougou.manager.controller;
-import java.util.List;
 
-import entity.Specification;
-import org.springframework.web.bind.annotation.*;
 import com.alibaba.dubbo.config.annotation.Reference;
+import com.github.pagehelper.PageInfo;
 import com.pinyougou.pojo.TbSpecification;
 import com.pinyougou.sellergoods.service.SpecificationService;
-
-import com.github.pagehelper.PageInfo;
 import entity.Result;
+import entity.Specification;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
 /**
  * controller
  * @author Administrator
@@ -26,7 +27,7 @@ public class SpecificationController {
 	 * @return
 	 */
 	@RequestMapping("/findAll")
-	public List<TbSpecification> findAll(){			
+	public List<TbSpecification> findAll(){
 		return specificationService.findAll();
 	}
 	
@@ -34,7 +35,7 @@ public class SpecificationController {
 	
 	@RequestMapping("/findPage")
     public PageInfo<TbSpecification> findPage(@RequestParam(value = "pageNo", defaultValue = "1", required = true) Integer pageNo,
-                                      @RequestParam(value = "pageSize", defaultValue = "10", required = true) Integer pageSize) {
+                                              @RequestParam(value = "pageSize", defaultValue = "10", required = true) Integer pageSize) {
         return specificationService.findPage(pageNo, pageSize);
     }
 	
@@ -89,7 +90,7 @@ public class SpecificationController {
 	public Result delete(@RequestBody Long[] ids){
 		try {
 			specificationService.delete(ids);
-			return new Result(true, "删除成功"); 
+			return new Result(true, "删除成功");
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new Result(false, "删除失败");
@@ -100,8 +101,8 @@ public class SpecificationController {
 
 	@RequestMapping("/search")
     public PageInfo<TbSpecification> findPage(@RequestParam(value = "pageNo", defaultValue = "1", required = true) Integer pageNo,
-                                      @RequestParam(value = "pageSize", defaultValue = "10", required = true) Integer pageSize,
-                                      @RequestBody TbSpecification specification) {
+                                              @RequestParam(value = "pageSize", defaultValue = "10", required = true) Integer pageSize,
+                                              @RequestBody TbSpecification specification) {
         return specificationService.findPage(pageNo, pageSize, specification);
     }
 	
