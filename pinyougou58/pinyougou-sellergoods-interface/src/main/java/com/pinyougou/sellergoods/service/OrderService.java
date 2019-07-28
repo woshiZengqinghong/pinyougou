@@ -1,28 +1,27 @@
 package com.pinyougou.sellergoods.service;
-import java.util.List;
-import com.pinyougou.pojo.TbBrand;
 
 import com.github.pagehelper.PageInfo;
 import com.pinyougou.core.service.CoreService;
+import com.pinyougou.pojo.TbOrder;
+
+import java.util.Map;
+
 /**
  * 服务层接口
  * @author Administrator
  *
  */
-public interface BrandService extends CoreService<TbBrand> {
+public interface OrderService extends CoreService<TbOrder> {
 
-	/**
-	 * 从excel表中导入到数据库
-	 */
-	void importBrandList();
+	public Map<String,Object> paymentGroupBySellerId();
 	
 	/**
 	 * 返回分页列表
 	 * @return
 	 */
-	 PageInfo<TbBrand> findPage(Integer pageNo, Integer pageSize);
-	
-	
+	 PageInfo<TbOrder> findPage(Integer pageNo, Integer pageSize);
+
+
 
 	/**
 	 * 分页
@@ -30,8 +29,6 @@ public interface BrandService extends CoreService<TbBrand> {
 	 * @param pageSize 每页记录数
 	 * @return
 	 */
-	PageInfo<TbBrand> findPage(Integer pageNo, Integer pageSize, TbBrand Brand);
-
-
+	PageInfo<TbOrder> findPage(Integer pageNo, Integer pageSize, TbOrder Order);
 	
 }
