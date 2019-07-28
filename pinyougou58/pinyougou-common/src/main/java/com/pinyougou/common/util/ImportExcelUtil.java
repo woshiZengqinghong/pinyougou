@@ -1,6 +1,6 @@
 package com.pinyougou.common.util;
 
-import com.pinyougou.common.pojo.Brand;
+
 import org.apache.poi.hssf.usermodel.HSSFDateUtil;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;

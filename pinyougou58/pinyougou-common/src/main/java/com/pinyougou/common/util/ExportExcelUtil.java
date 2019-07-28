@@ -1,7 +1,6 @@
 package com.pinyougou.common.util;
 
 
-import com.pinyougou.common.pojo.Student;
 import org.apache.poi.hssf.usermodel.*;
 import java.io.FileOutputStream;
 import java.io.IOException;
