@@ -9,6 +9,14 @@
         searchEntity:{}
     },
     methods: {
+        importBrandList:function () {
+            axios.post("/brand/importBrandList.shtml").then(function (response) {
+                if (response.data.success) {
+                    console.log(response.data.message);
+                }
+            })
+
+        },
         searchList:function (curPage) {
             axios.post('/brand/search.shtml?pageNo='+curPage,this.searchEntity).then(function (response) {
                 //获取数据
