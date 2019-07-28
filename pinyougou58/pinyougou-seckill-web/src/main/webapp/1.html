@@ -183,7 +183,7 @@
                 </div>
                 <div class="news">
                     <span><img src="img/_/clock.png"/>品优秒杀</span>
-                    <span class="overtime">距离结束：{{timeString}}</span>
+                    <span class="overtime">距离结束：01:56:78</span>
                 </div>
                 <div class="summary">
                     <div class="summary-wrap">
@@ -194,7 +194,7 @@
                         <div class="fl price">
                             <i>¥</i>
                             <em>100</em>
-                            <span>剩余库存:{{goodInfo.count}}</span>
+                            <span>降价通知</span>
                         </div>
                         <div class="fr remark">
                             <i>秒杀价</i><em>0.01</em>
@@ -299,10 +299,7 @@
                         <div class="fl">
                             <ul class="btn-choose unstyled">
                                 <li>
-                                    <a @click="submitOrder();queryStatus()" class="sui-btn  btn-danger addshopcar">立即抢购</a>
-                                </li>
-                                <li>
-                                    <span style="color: red" >{{messageInfo}}</span>
+                                    <a @click="submitOrder();queryStatus()"  target="_blank" class="sui-btn  btn-danger addshopcar">立即抢购</a>
                                 </li>
                             </ul>
                         </div>
@@ -357,7 +354,7 @@
                                         </strong>
                                     </div>
                                     <div class="operate">
-                                        <a href="javascript:void(0);" class="sui-btn btn-bordered">加入购物车</a>
+                                        <a href="javascript:void(0);" class="sui-btn btn-bordered">立即抢购</a>
                                     </div>
                                 </div>
                             </li>
@@ -376,7 +373,7 @@
                                         </strong>
                                     </div>
                                     <div class="operate">
-                                        <a href="javascript:void(0);" class="sui-btn btn-bordered">加入购物车</a>
+                                        <a href="javascript:void(0);" class="sui-btn btn-bordered">立即抢购</a>
                                     </div>
                                 </div>
                             </li>
@@ -395,7 +392,7 @@
                                         </strong>
                                     </div>
                                     <div class="operate">
-                                        <a href="javascript:void(0);" class="sui-btn btn-bordered">加入购物车</a>
+                                        <a href="javascript:void(0);" class="sui-btn btn-bordered">立即抢购</a>
                                     </div>
                                 </div>
                                 <div class="list-wrap">
@@ -412,7 +409,7 @@
                                         </strong>
                                     </div>
                                     <div class="operate">
-                                        <a href="javascript:void(0);" class="sui-btn btn-bordered">加入购物车</a>
+                                        <a href="javascript:void(0);" class="sui-btn btn-bordered">立即抢购</a>
                                     </div>
                                 </div>
                                 <div class="list-wrap">
@@ -429,7 +426,7 @@
                                         </strong>
                                     </div>
                                     <div class="operate">
-                                        <a href="javascript:void(0);" class="sui-btn btn-bordered">加入购物车</a>
+                                        <a href="javascript:void(0);" class="sui-btn btn-bordered">立即抢购</a>
                                     </div>
                                 </div>
                             </li>
@@ -491,7 +488,7 @@
                             <div class="num">已选购0件商品</div>
                             <div class="price-tit"><strong>套餐价</strong></div>
                             <div class="price">￥5299</div>
-                            <button class="sui-btn  btn-danger addshopcar">加入购物车</button>
+                            <button class="sui-btn  btn-danger addshopcar">立即抢购</button>
                         </div>
                     </div>
                 </div>
@@ -698,7 +695,10 @@
                 <ul class="Mod-Service-list">
                     <li class="grid-service-item intro  intro1">
 
-                        <i class="serivce-item fl"></i>
+                        base.js
+                        payController.js
+                        seckillGoodsController.js
+                        seckillItemController.js<i class="serivce-item fl"></i>
                         <div class="service-text">
                             <h4>正品保障</h4>
                             <p>正品保障，提供发票</p>
@@ -887,12 +887,12 @@
                                 <ul>
                                     <!--<li class="jth-item">
                                         <a href="#" class="img-wrap"> <img src=".portal/img/like_03.png" height="100" width="100" /> </a>
-                                        <a class="add-cart-button" href="#" target="_blank">加入购物车</a>
+                                        <a class="add-cart-button" href="#" target="_blank">立即抢购</a>
                                         <a href="#" target="_blank" class="price">￥498.00</a>
                                     </li>
                                     <li class="jth-item">
                                         <a href="#" class="img-wrap"> <img src="portal/img/like_02.png" height="100" width="100" /></a>
-                                        <a class="add-cart-button" href="#" target="_blank">加入购物车</a>
+                                        <a class="add-cart-button" href="#" target="_blank">立即抢购</a>
                                         <a href="#" target="_blank" class="price">￥498.00</a>
                                     </li>-->
                                 </ul>
@@ -1189,7 +1189,7 @@
                         <div class="fl price">
                             <i>¥</i>
                             <em>100</em>
-                            <span>剩余库存:{{goodInfo.count}}</span>
+                            <span>降价通知</span>
                         </div>
                         <div class="fr remark">
                             <i>打折价</i><em>0.01</em>
@@ -1294,10 +1294,7 @@
                         <div class="fl">
                             <ul class="btn-choose unstyled">
                                 <li>
-                                    <a @click="submitOrder();queryStatus()" class="sui-btn  btn-danger addshopcar">立即抢购</a>
-                                </li>
-                                <li>
-                                    <span style="color: red" >{{messageInfo}}</span>
+                                    <a @click="submitOrder();queryStatus()"  target="_blank" class="sui-btn  btn-danger addshopcar">立即抢购</a>
                                 </li>
                             </ul>
                         </div>
@@ -1352,7 +1349,7 @@
                                         </strong>
                                     </div>
                                     <div class="operate">
-                                        <a href="javascript:void(0);" class="sui-btn btn-bordered">加入购物车</a>
+                                        <a href="javascript:void(0);" class="sui-btn btn-bordered">立即抢购</a>
                                     </div>
                                 </div>
                             </li>
@@ -1371,7 +1368,7 @@
                                         </strong>
                                     </div>
                                     <div class="operate">
-                                        <a href="javascript:void(0);" class="sui-btn btn-bordered">加入购物车</a>
+                                        <a href="javascript:void(0);" class="sui-btn btn-bordered">立即抢购</a>
                                     </div>
                                 </div>
                             </li>
@@ -1390,7 +1387,7 @@
                                         </strong>
                                     </div>
                                     <div class="operate">
-                                        <a href="javascript:void(0);" class="sui-btn btn-bordered">加入购物车</a>
+                                        <a href="javascript:void(0);" class="sui-btn btn-bordered">立即抢购</a>
                                     </div>
                                 </div>
                                 <div class="list-wrap">
@@ -1407,7 +1404,7 @@
                                         </strong>
                                     </div>
                                     <div class="operate">
-                                        <a href="javascript:void(0);" class="sui-btn btn-bordered">加入购物车</a>
+                                        <a href="javascript:void(0);" class="sui-btn btn-bordered">立即抢购</a>
                                     </div>
                                 </div>
                                 <div class="list-wrap">
@@ -1424,7 +1421,7 @@
                                         </strong>
                                     </div>
                                     <div class="operate">
-                                        <a href="javascript:void(0);" class="sui-btn btn-bordered">加入购物车</a>
+                                        <a href="javascript:void(0);" class="sui-btn btn-bordered">立即抢购</a>
                                     </div>
                                 </div>
                             </li>
@@ -1486,7 +1483,7 @@
                             <div class="num">已选购0件商品</div>
                             <div class="price-tit"><strong>套餐价</strong></div>
                             <div class="price">￥5299</div>
-                            <button class="sui-btn  btn-danger addshopcar">加入购物车</button>
+                            <button class="sui-btn  btn-danger addshopcar">立即抢购</button>
                         </div>
                     </div>
                 </div>
@@ -1882,12 +1879,12 @@
                                 <ul>
                                     <!--<li class="jth-item">
                                         <a href="#" class="img-wrap"> <img src=".portal/img/like_03.png" height="100" width="100" /> </a>
-                                        <a class="add-cart-button" href="#" target="_blank">加入购物车</a>
+                                        <a class="add-cart-button" href="#" target="_blank">立即抢购</a>
                                         <a href="#" target="_blank" class="price">￥498.00</a>
                                     </li>
                                     <li class="jth-item">
                                         <a href="#" class="img-wrap"> <img src="portal/img/like_02.png" height="100" width="100" /></a>
-                                        <a class="add-cart-button" href="#" target="_blank">加入购物车</a>
+                                        <a class="add-cart-button" href="#" target="_blank">立即抢购</a>
                                         <a href="#" target="_blank" class="price">￥498.00</a>
                                     </li>-->
                                 </ul>

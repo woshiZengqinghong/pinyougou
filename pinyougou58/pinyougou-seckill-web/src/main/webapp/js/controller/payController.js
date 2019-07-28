@@ -6,6 +6,19 @@ var app = new Vue({
     },
     methods:{
         /**
+         * 阿里支付
+         */
+        // goAliPay:function () {
+        //     console.log("我进来了");
+        //     axios.get('/pay/goAlipay.shtml').then(function (response) {
+        //         if (response.data != null) {
+        //             // app.payObject=response.data;
+        //             // app.payObject.total_fee=response.data.total_fee/100;
+        //
+        //         }
+        //     })
+        // },
+        /**
          * 创建二维码
          */
         createNative:function () {
@@ -69,4 +82,4 @@ var app = new Vue({
             this.totalMoney=urlParam.total_fee
         }
     }
-})
+});

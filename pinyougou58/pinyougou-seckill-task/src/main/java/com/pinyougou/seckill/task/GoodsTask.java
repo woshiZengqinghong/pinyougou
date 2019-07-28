@@ -27,23 +27,29 @@ public class GoodsTask {
      */
     @Scheduled(cron = "*/3 * * * * ?")
     public void pushGoods(){
+//        TbSeckillGoods tbSeckillGoods = (TbSeckillGoods) redisTemplate.boundHashOps("TbSeckillGoods").get(1L);
+//        System.out.println(tbSeckillGoods);
+
         //库存大于0 审核通过的商品
         Example example = new Example(TbSeckillGoods.class);
         Example.Criteria criteria = example.createCriteria();
         criteria.andEqualTo("status","1");
-        criteria.andGreaterThan("stockCount",0);
+        criteria.andGreaterThan("stockCount","0");
         //排除redis中已有的secKillGoods
         Set<Long> keys = redisTemplate.boundHashOps("TbSeckillGoods").keys();
+
         //设置存入时间
         if (keys!=null&&keys.size()>0){
             criteria.andNotIn("id",keys);
         }
         Date date = new Date();
         criteria.andGreaterThan("startTime",date);
+//        criteria.andGreaterThan("endTime",date);
         System.out.println(">>>>>>>>>>>>>>>>>redis>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
         //获取数据
         List<TbSeckillGoods> seckillGoods = seckillGoodsMapper.selectByExample(example);
-        //存入redis
+        System.out.println(seckillGoods);
+
         for (TbSeckillGoods seckillGood : seckillGoods) {
             redisTemplate.boundHashOps("TbSeckillGoods").put(seckillGood.getId(),seckillGood);
             pushGoodsList(seckillGood);

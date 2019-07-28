@@ -1,29 +1,25 @@
 package com.pinyougou.seckill.service.impl;
 
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-
-import com.pinyougou.common.pojo.SysConstants;
-import com.pinyougou.common.util.IdWorker;
-import com.pinyougou.mapper.TbSeckillGoodsMapper;
-import com.pinyougou.pojo.TbSeckillGoods;
-import com.pinyougou.seckill.pojo.SeckillStatus;
-import com.pinyougou.seckill.service.SeckillOrderService;
-import com.pinyougou.seckill.thread.CreateOrderThread;
-import org.springframework.beans.factory.annotation.Autowired;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import org.apache.commons.lang3.StringUtils;
+import com.pinyougou.common.pojo.SysConstants;
 import com.pinyougou.core.service.CoreServiceImpl;
-
+import com.pinyougou.mapper.TbSeckillGoodsMapper;
+import com.pinyougou.mapper.TbSeckillOrderMapper;
+import com.pinyougou.pojo.TbSeckillGoods;
+import com.pinyougou.pojo.TbSeckillOrder;
+import com.pinyougou.seckill.pojo.SeckillStatus;
+import com.pinyougou.seckill.service.SeckillOrderService;
+import com.pinyougou.seckill.thread.CreateOrderThread;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import tk.mybatis.mapper.entity.Example;
 
-import com.pinyougou.mapper.TbSeckillOrderMapper;
-import com.pinyougou.pojo.TbSeckillOrder;
+import java.util.Date;
+import java.util.List;
 
 
 /**
@@ -141,7 +137,7 @@ public class SeckillOrderServiceImpl extends CoreServiceImpl<TbSeckillOrder> imp
         }
 
         //将用户加入下单队列
-        redisTemplate.boundListOps(SysConstants.SEC_KILL_USER_ORDER_LIST).leftPush(new SeckillStatus(userId,secKillGoodId,SeckillStatus.SECKILL_queuing));
+        redisTemplate.boundListOps(SysConstants.SEC_KILL_USER_ORDER_LIST).leftPush(new SeckillStatus(userId,secKillGoodId, SeckillStatus.SECKILL_queuing));
         //标记用户的排队状态
         redisTemplate.boundHashOps(SysConstants.SEC_USER_QUEUE_FLAG_KEY).put(userId, secKillGoodId);
 

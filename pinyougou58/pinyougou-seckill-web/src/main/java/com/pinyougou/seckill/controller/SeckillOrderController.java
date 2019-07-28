@@ -1,14 +1,15 @@
 package com.pinyougou.seckill.controller;
-import java.util.List;
 
+import com.alibaba.dubbo.config.annotation.Reference;
+import com.github.pagehelper.PageInfo;
+import com.pinyougou.pojo.TbSeckillOrder;
 import com.pinyougou.seckill.service.SeckillOrderService;
+import entity.Result;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-import com.alibaba.dubbo.config.annotation.Reference;
-import com.pinyougou.pojo.TbSeckillOrder;
 
-import com.github.pagehelper.PageInfo;
-import entity.Result;
+import java.util.List;
+
 /**
  * controller
  * @author Administrator
@@ -27,16 +28,23 @@ public class SeckillOrderController {
 	 */
 	@RequestMapping("/queryOrderStatus")
 	public Result queryOrderStatus(){
-		String userId = SecurityContextHolder.getContext().getAuthentication().getName();
-		//用户未登录
-		if (userId == null) {
-			return new Result(false,"403");
-		}
-		Object secKillStatus = seckillOrderService.getUserOrderStatus(userId);
-		if (secKillStatus == null) {
-			return new Result(false,"正在排队,请稍等");
-		}else {
-			return new Result(true,"请支付");
+		try {
+			String userId = SecurityContextHolder.getContext().getAuthentication().getName();
+
+			if ("anonymousUser".equals(userId)) {
+				//表示没有登陆
+				return new Result(false,"403");
+			}
+			TbSeckillOrder userOrderStatus = (TbSeckillOrder) seckillOrderService.getUserOrderStatus(userId);
+			//说明订单生成成功
+			if (userOrderStatus != null) {
+				return new Result(true,"待支付");
+			}else{
+				return new Result(false,"正在排队中,请稍后");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new Result(false,"抢单失败");
 		}
 
 	}
@@ -71,7 +79,7 @@ public class SeckillOrderController {
 	 * @return
 	 */
 	@RequestMapping("/findAll")
-	public List<TbSeckillOrder> findAll(){			
+	public List<TbSeckillOrder> findAll(){
 		return seckillOrderService.findAll();
 	}
 	
@@ -79,7 +87,7 @@ public class SeckillOrderController {
 	
 	@RequestMapping("/findPage")
     public PageInfo<TbSeckillOrder> findPage(@RequestParam(value = "pageNo", defaultValue = "1", required = true) Integer pageNo,
-                                      @RequestParam(value = "pageSize", defaultValue = "10", required = true) Integer pageSize) {
+                                             @RequestParam(value = "pageSize", defaultValue = "10", required = true) Integer pageSize) {
         return seckillOrderService.findPage(pageNo, pageSize);
     }
 	
@@ -134,7 +142,7 @@ public class SeckillOrderController {
 	public Result delete(@RequestBody Long[] ids){
 		try {
 			seckillOrderService.delete(ids);
-			return new Result(true, "删除成功"); 
+			return new Result(true, "删除成功");
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new Result(false, "删除失败");
@@ -145,8 +153,8 @@ public class SeckillOrderController {
 
 	@RequestMapping("/search")
     public PageInfo<TbSeckillOrder> findPage(@RequestParam(value = "pageNo", defaultValue = "1", required = true) Integer pageNo,
-                                      @RequestParam(value = "pageSize", defaultValue = "10", required = true) Integer pageSize,
-                                      @RequestBody TbSeckillOrder seckillOrder) {
+                                             @RequestParam(value = "pageSize", defaultValue = "10", required = true) Integer pageSize,
+                                             @RequestBody TbSeckillOrder seckillOrder) {
         return seckillOrderService.findPage(pageNo, pageSize, seckillOrder);
     }
 	

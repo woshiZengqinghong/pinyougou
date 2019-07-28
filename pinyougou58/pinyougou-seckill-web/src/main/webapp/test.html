@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form name="punchout_form" method="post" action="https://openapi.alipaydev.com/gateway.do?charset=utf-8&method=alipay.trade.page.pay&sign=Zb7kso78laqZ2qeQTQnfFSrlYF70GUqt8EwGRvfua08G5NBzdK50HYxs%2Bp9mMd9q%2FWw79gjqOspxHggI1a9LUh3kMXE95QEc1GDuPhswYiafgDbCHcMORTJ0c563bLYcLb2sUsxikpnTFwAmm0po4dfJgAElOau8l6X8meksS85TVZwcSk5%2FHzE9IeUabzC342V1aqv2EuSaehm5NBnlqSYReOm9rh5eYlFiFiSaGo%2FvCqLkWgq5CZKG8R4Gi7qHF%2FuWJTFT2KX%2BlnLtAw2wSdhYiLJrr7%2FQjCs8dHGqGDUzTpSsbn9Bjd84844bB%2B91xS1aMJPNevUX3iqq2D6Lag%3D%3D&return_url=http%3A%2F%2Flocalhost%3A8080%2Falipay%2FalipayReturnNotice.action&notify_url=http%3A%2F%2Flocalhost%3A8080%2Falipay%2FalipayNotifyNotice.action&version=1.0&app_id=2016092400585291&sign_type=RSA2&timestamp=2019-07-26+20%3A18%3A07&alipay_sdk=alipay-sdk-java-3.1.0&format=json">
+    <input type="hidden" name="biz_content" value="{&quot;out_trade_no&quot;:&quot;1154727579698331648&quot;,&quot;total_amount&quot;:&quot;0.01&quot;,&quot;subject&quot;:&quot;zhangsanfeng&quot;,&quot;body&quot;:&quot;用户zhangsanfeng订购商品&quot;,&quot;timeout_express&quot;:&quot;1c&quot;,&quot;product_code&quot;:&quot;FAST_INSTANT_TRADE_PAY&quot;}">
+    <input type="submit" value="立即支付" style="display:none" >
+</form>
+<script>document.forms[0].submit();</script>
+
+</body>
+</html>
