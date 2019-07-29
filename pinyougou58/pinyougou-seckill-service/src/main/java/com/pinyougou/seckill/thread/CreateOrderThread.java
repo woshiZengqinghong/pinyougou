@@ -75,7 +75,7 @@ public class CreateOrderThread {
 
     public void sendMessage(TbSeckillOrder seckillOrder){
         try {
-            MessageInfo messageInfo = new MessageInfo(seckillOrder,"TOPIC_SECKILL_DELAY","TAG_SECKILL_DELAY","handleOrder_DELAY",MessageInfo.METHOD_UPDATE);
+            MessageInfo messageInfo = new MessageInfo(seckillOrder,"TOPIC_SECKILL_DELAY","TAG_SECKILL_DELAY","handleOrder_DELAY", MessageInfo.METHOD_UPDATE);
             Message message = new Message(messageInfo.getTopic(),messageInfo.getTags(),messageInfo.getKeys(), JSON.toJSONString(messageInfo).getBytes());
             //1分钟后发送消息
             message.setDelayTimeLevel(5);

@@ -1,13 +1,15 @@
 package com.pinyougou.seckill.controller;
+
+import com.alibaba.dubbo.config.annotation.Reference;
+import com.github.pagehelper.PageInfo;
+import com.pinyougou.pojo.TbSeckillGoods;
+import com.pinyougou.seckill.service.SeckillGoodsService;
+import entity.Result;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 import java.util.Map;
 
-import com.pinyougou.seckill.service.SeckillGoodsService;
-import org.springframework.web.bind.annotation.*;
-import com.alibaba.dubbo.config.annotation.Reference;
-import com.pinyougou.pojo.TbSeckillGoods;
-import com.github.pagehelper.PageInfo;
-import entity.Result;
 /**
  * controller
  * @author Administrator
@@ -54,7 +56,7 @@ public class SeckillGoodsController {
 	
 	@RequestMapping("/findPage")
     public PageInfo<TbSeckillGoods> findPage(@RequestParam(value = "pageNo", defaultValue = "1", required = true) Integer pageNo,
-                                      @RequestParam(value = "pageSize", defaultValue = "10", required = true) Integer pageSize) {
+                                             @RequestParam(value = "pageSize", defaultValue = "10", required = true) Integer pageSize) {
         return seckillGoodsService.findPage(pageNo, pageSize);
     }
 	
@@ -109,7 +111,7 @@ public class SeckillGoodsController {
 	public Result delete(@RequestBody Long[] ids){
 		try {
 			seckillGoodsService.delete(ids);
-			return new Result(true, "删除成功"); 
+			return new Result(true, "删除成功");
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new Result(false, "删除失败");
@@ -120,8 +122,8 @@ public class SeckillGoodsController {
 
 	@RequestMapping("/search")
     public PageInfo<TbSeckillGoods> findPage(@RequestParam(value = "pageNo", defaultValue = "1", required = true) Integer pageNo,
-                                      @RequestParam(value = "pageSize", defaultValue = "10", required = true) Integer pageSize,
-                                      @RequestBody TbSeckillGoods seckillGoods) {
+                                             @RequestParam(value = "pageSize", defaultValue = "10", required = true) Integer pageSize,
+                                             @RequestBody TbSeckillGoods seckillGoods) {
         return seckillGoodsService.findPage(pageNo, pageSize, seckillGoods);
     }
 	

@@ -1,13 +1,14 @@
 package com.pinyougou.manager.controller;
-import java.util.List;
 
-import org.springframework.web.bind.annotation.*;
 import com.alibaba.dubbo.config.annotation.Reference;
+import com.github.pagehelper.PageInfo;
 import com.pinyougou.pojo.TbItemCat;
 import com.pinyougou.sellergoods.service.ItemCatService;
-
-import com.github.pagehelper.PageInfo;
 import entity.Result;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
 /**
  * controller
  * @author Administrator
@@ -25,7 +26,7 @@ public class ItemCatController {
 	 * @return
 	 */
 	@RequestMapping("/findAll")
-	public List<TbItemCat> findAll(){			
+	public List<TbItemCat> findAll(){
 		return itemCatService.findAll();
 	}
 	
@@ -33,7 +34,7 @@ public class ItemCatController {
 	
 	@RequestMapping("/findPage")
     public PageInfo<TbItemCat> findPage(@RequestParam(value = "pageNo", defaultValue = "1", required = true) Integer pageNo,
-                                      @RequestParam(value = "pageSize", defaultValue = "10", required = true) Integer pageSize) {
+                                        @RequestParam(value = "pageSize", defaultValue = "10", required = true) Integer pageSize) {
         return itemCatService.findPage(pageNo, pageSize);
     }
 	
@@ -88,7 +89,7 @@ public class ItemCatController {
 	public Result delete(@RequestBody Long[] ids){
 		try {
 			itemCatService.delete(ids);
-			return new Result(true, "删除成功"); 
+			return new Result(true, "删除成功");
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new Result(false, "删除失败");
@@ -99,8 +100,8 @@ public class ItemCatController {
 
 	@RequestMapping("/search")
     public PageInfo<TbItemCat> findPage(@RequestParam(value = "pageNo", defaultValue = "1", required = true) Integer pageNo,
-                                      @RequestParam(value = "pageSize", defaultValue = "10", required = true) Integer pageSize,
-                                      @RequestBody TbItemCat itemCat) {
+                                        @RequestParam(value = "pageSize", defaultValue = "10", required = true) Integer pageSize,
+                                        @RequestBody TbItemCat itemCat) {
         return itemCatService.findPage(pageNo, pageSize, itemCat);
     }
 

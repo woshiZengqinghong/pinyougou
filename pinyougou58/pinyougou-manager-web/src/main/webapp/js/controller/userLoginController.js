@@ -2,6 +2,7 @@ var app = new Vue({
     el: "#app",
     data: {
        username:''
+
     },
     methods:{
         getUserInfo:function () {
@@ -13,6 +14,7 @@ var app = new Vue({
 
 
         }
+
     },
     created:function () {
            this.getUserInfo();

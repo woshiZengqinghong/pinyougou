@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -149,6 +149,25 @@
             <artifactId>rocketmq-client</artifactId>
             <version>${rocketmq-version}</version>
         </dependency>
+
+   <!-- https://mvnrepository.com/artifact/org.apache.poi/poi excel导入 -->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>3.17</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>3.17</version>
+        </dependency>
+
+        <dependency>
+            <groupId>poi</groupId>
+            <artifactId>poi-2.5.1-final</artifactId>
+            <version>20040804</version>
+        </dependency>
+
 
     </dependencies>
 

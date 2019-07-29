@@ -7,12 +7,9 @@ import com.pinyougou.common.pojo.MessageInfo;
 import com.pinyougou.pojo.TbSeckillGoods;
 import com.pinyougou.seckill.service.SeckillGoodsService;
 import entity.Result;
-import org.apache.rocketmq.client.exception.MQBrokerException;
-import org.apache.rocketmq.client.exception.MQClientException;
 import org.apache.rocketmq.client.producer.DefaultMQProducer;
 import org.apache.rocketmq.client.producer.SendResult;
 import org.apache.rocketmq.common.message.Message;
-import org.apache.rocketmq.remoting.exception.RemotingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,7 +35,7 @@ public class SeckillGoodsController {
 	 * @return
 	 */
 	@RequestMapping("/findAll")
-	public List<TbSeckillGoods> findAll(){			
+	public List<TbSeckillGoods> findAll(){
 		return seckillGoodsService.findAll();
 	}
 	
@@ -46,7 +43,7 @@ public class SeckillGoodsController {
 	
 	@RequestMapping("/findPage")
     public PageInfo<TbSeckillGoods> findPage(@RequestParam(value = "pageNo", defaultValue = "1", required = true) Integer pageNo,
-                                      @RequestParam(value = "pageSize", defaultValue = "10", required = true) Integer pageSize) {
+                                             @RequestParam(value = "pageSize", defaultValue = "10", required = true) Integer pageSize) {
         return seckillGoodsService.findPage(pageNo, pageSize);
     }
 	
@@ -101,7 +98,7 @@ public class SeckillGoodsController {
 	public Result delete(@RequestBody Long[] ids){
 		try {
 			seckillGoodsService.delete(ids);
-			return new Result(true, "删除成功"); 
+			return new Result(true, "删除成功");
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new Result(false, "删除失败");
@@ -112,8 +109,8 @@ public class SeckillGoodsController {
 
 	@RequestMapping("/search")
     public PageInfo<TbSeckillGoods> findPage(@RequestParam(value = "pageNo", defaultValue = "1", required = true) Integer pageNo,
-                                      @RequestParam(value = "pageSize", defaultValue = "10", required = true) Integer pageSize,
-                                      @RequestBody TbSeckillGoods seckillGoods) {
+                                             @RequestParam(value = "pageSize", defaultValue = "10", required = true) Integer pageSize,
+                                             @RequestBody TbSeckillGoods seckillGoods) {
         return seckillGoodsService.findPage(pageNo, pageSize, seckillGoods);
     }
 
@@ -133,7 +130,7 @@ public class SeckillGoodsController {
 			seckillGoodsService.updateByPrimaryKeySelective(tbSeckillGoods);
 		}
 			//rocketMq 发送消息生成秒杀商品静态页面
-			MessageInfo messageInfo = new MessageInfo(ids,"TOPIC_SECKILL","Tags_genHtml","seckillGoods_updateStatus",MessageInfo.METHOD_ADD);
+			MessageInfo messageInfo = new MessageInfo(ids,"TOPIC_SECKILL","Tags_genHtml","seckillGoods_updateStatus", MessageInfo.METHOD_ADD);
 			Message message = new Message(messageInfo.getTopic(),messageInfo.getTags(),messageInfo.getKeys(), JSON.toJSONString(messageInfo).getBytes());
 			SendResult send = producer.send(message);
 			System.out.println(send);

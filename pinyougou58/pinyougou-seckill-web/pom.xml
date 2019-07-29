@@ -147,7 +147,12 @@
             <version>${servlet-api.version}</version>
             <scope>provided</scope>
         </dependency>
-
+        <!--支付宝-->
+        <dependency>
+            <groupId>com.alipay.sdk</groupId>
+            <artifactId>alipay-sdk-java</artifactId>
+            <version>3.1.0</version>
+        </dependency>
 
     </dependencies>
 

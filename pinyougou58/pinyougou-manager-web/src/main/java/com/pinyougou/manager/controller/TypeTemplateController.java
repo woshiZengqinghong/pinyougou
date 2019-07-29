@@ -1,13 +1,14 @@
 package com.pinyougou.manager.controller;
-import java.util.List;
 
-import org.springframework.web.bind.annotation.*;
 import com.alibaba.dubbo.config.annotation.Reference;
+import com.github.pagehelper.PageInfo;
 import com.pinyougou.pojo.TbTypeTemplate;
 import com.pinyougou.sellergoods.service.TypeTemplateService;
-
-import com.github.pagehelper.PageInfo;
 import entity.Result;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
 /**
  * controller
  * @author Administrator
@@ -25,7 +26,7 @@ public class TypeTemplateController {
 	 * @return
 	 */
 	@RequestMapping("/findAll")
-	public List<TbTypeTemplate> findAll(){			
+	public List<TbTypeTemplate> findAll(){
 		return typeTemplateService.findAll();
 	}
 	
@@ -33,7 +34,7 @@ public class TypeTemplateController {
 	
 	@RequestMapping("/findPage")
     public PageInfo<TbTypeTemplate> findPage(@RequestParam(value = "pageNo", defaultValue = "1", required = true) Integer pageNo,
-                                      @RequestParam(value = "pageSize", defaultValue = "10", required = true) Integer pageSize) {
+                                             @RequestParam(value = "pageSize", defaultValue = "10", required = true) Integer pageSize) {
         return typeTemplateService.findPage(pageNo, pageSize);
     }
 	
@@ -88,7 +89,7 @@ public class TypeTemplateController {
 	public Result delete(@RequestBody Long[] ids){
 		try {
 			typeTemplateService.delete(ids);
-			return new Result(true, "删除成功"); 
+			return new Result(true, "删除成功");
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new Result(false, "删除失败");
@@ -99,8 +100,8 @@ public class TypeTemplateController {
 
 	@RequestMapping("/search")
     public PageInfo<TbTypeTemplate> findPage(@RequestParam(value = "pageNo", defaultValue = "1", required = true) Integer pageNo,
-                                      @RequestParam(value = "pageSize", defaultValue = "10", required = true) Integer pageSize,
-                                      @RequestBody TbTypeTemplate typeTemplate) {
+                                             @RequestParam(value = "pageSize", defaultValue = "10", required = true) Integer pageSize,
+                                             @RequestBody TbTypeTemplate typeTemplate) {
         return typeTemplateService.findPage(pageNo, pageSize, typeTemplate);
     }
 	

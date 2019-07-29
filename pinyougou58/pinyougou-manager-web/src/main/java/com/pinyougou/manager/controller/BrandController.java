@@ -1,13 +1,14 @@
 package com.pinyougou.manager.controller;
-import java.util.List;
 
-import org.springframework.web.bind.annotation.*;
 import com.alibaba.dubbo.config.annotation.Reference;
+import com.github.pagehelper.PageInfo;
 import com.pinyougou.pojo.TbBrand;
 import com.pinyougou.sellergoods.service.BrandService;
-
-import com.github.pagehelper.PageInfo;
 import entity.Result;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
 /**
  * controller
  * @author Administrator
@@ -19,13 +20,30 @@ public class BrandController {
 
 	@Reference
 	private BrandService brandService;
-	
+
+	/**
+	 * 导入数据到数据库
+	 */
+	@RequestMapping("/importBrandList")
+	public Result importBrandList(){
+		Result result = null;
+		try {
+			brandService.importBrandList();
+			result = new Result(true,"导入成功");
+		} catch (Exception e) {
+			e.printStackTrace();
+			result = new Result(false,"导入失败");
+		}
+		return  result;
+	}
+
 	/**
 	 * 返回全部列表
 	 * @return
 	 */
 	@RequestMapping("/findAll")
-	public List<TbBrand> findAll(){			
+	public List<TbBrand> findAll(){
+		System.out.println("我枯了"+brandService);
 		return brandService.findAll();
 	}
 	
@@ -88,7 +106,7 @@ public class BrandController {
 	public Result delete(@RequestBody Long[] ids){
 		try {
 			brandService.delete(ids);
-			return new Result(true, "删除成功"); 
+			return new Result(true, "删除成功");
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new Result(false, "删除失败");
@@ -101,6 +119,7 @@ public class BrandController {
     public PageInfo<TbBrand> findPage(@RequestParam(value = "pageNo", defaultValue = "1", required = true) Integer pageNo,
                                       @RequestParam(value = "pageSize", defaultValue = "10", required = true) Integer pageSize,
                                       @RequestBody TbBrand brand) {
+
         return brandService.findPage(pageNo, pageSize, brand);
     }
 	

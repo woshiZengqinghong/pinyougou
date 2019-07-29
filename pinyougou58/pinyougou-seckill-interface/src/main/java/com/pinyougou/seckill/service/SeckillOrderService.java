@@ -1,9 +1,9 @@
 package com.pinyougou.seckill.service;
-import java.util.List;
-import com.pinyougou.pojo.TbSeckillOrder;
 
 import com.github.pagehelper.PageInfo;
 import com.pinyougou.core.service.CoreService;
+import com.pinyougou.pojo.TbSeckillOrder;
+
 /**
  * 服务层接口
  * @author Administrator
@@ -48,7 +48,7 @@ public interface SeckillOrderService extends CoreService<TbSeckillOrder> {
 	 * @param userId
 	 * @param transaction_id
 	 */
-    void updateOrderStatus(String transaction_id,String userId);
+    void updateOrderStatus(String transaction_id, String userId);
 
 	/**
 	 * 关闭订单
