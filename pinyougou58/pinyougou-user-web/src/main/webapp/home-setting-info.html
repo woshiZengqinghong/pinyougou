@@ -235,13 +235,13 @@
                                         </div>
                                     </div>
 
-									{{entity}}
+
                                     <div class="control-group">
                                         <label for="inputPassword" class="control-label">所在地：</label>
                                         <div class="controls">
                                             <div data-toggle="distpicker" id="distpicker">
                                                 <div class="form-group area">
-                                                    <select v-model="entity.province" class="form-control" id="province1">
+                                                    <select v-model="entity.province"  class="form-control" id="province1">
 
 													</select>
                                                 </div>
@@ -249,7 +249,7 @@
                                                     <select v-model="entity.city" class="form-control" id="city1"></select>
                                                 </div>
                                                 <div class="form-group area">
-                                                    <select v-model="entity.district" class="form-control" id="district1"></select>
+                                                    <select v-model="district" class="form-control" id="district1"></select>
                                                 </div>
                                             </div>
                                         </div>
@@ -280,12 +280,14 @@
                                 <div class="new-photo">
                                     <p>当前头像：</p>
                                     <div class="upload">
-                                        <img id="imgShow_WU_FILE_0" width="100" height="100" :src="entity.headPic" alt="">
-                                        <input type="file" name="file" id="up_img_WU_FILE_0" />
-										<div>
-											<button class="btn btn-primary" type="button" @click="uploadFile()">
+										<table>
+                                        	<img id="imgShow_WU_FILE_" width="100" height="100" :src="entity.headPic" alt="">
+                                        	<input type="file" id="file" />
+											<div>
+												<button class="btn btn-primary" type="button" @click="uploadFile()">
 												上传</button>
-										</div>
+											</div>
+										</table>
 									</div>
 
                                 </div>
@@ -443,7 +445,8 @@
 	// 			{province:'广东省'}
 	// 	);
 	// });
-
+	$(function(){
+	})
 
 
 

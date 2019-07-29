@@ -122,10 +122,6 @@ public class UserController {
     public TbUser findOne() {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         TbUser tbUser = userService.findOne(username);
-        System.out.println(tbUser.getUsername());
-        System.out.println(tbUser.getCreated());
-        System.out.println(tbUser.getStatus());
-        System.out.println(tbUser.getProvince());
         return tbUser;
     }
 

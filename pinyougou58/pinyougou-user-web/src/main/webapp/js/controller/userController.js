@@ -4,13 +4,14 @@
         pages:15,
         pageNo:1,
         list:[],
-        entity:{province:'北京市',city:'北京市市辖区',district:'东城区',job:'请选择'},
+        entity:{province:'广东省',city:'广州市',district:'东城区',job:'请选择'},
         jobs:['程序员','产品经理','UI','总经理'],
         birthYear:'',
         birthMonth:'',
         birthDay:'',
         province:'',
         city:'',
+        url:'',
         district:'',
         len:1,
         smsCode:'',
@@ -122,7 +123,7 @@
 
             //添加字段    formData.append('file'           ==> <input type="file"  name="file" value="文件本身">
             //            file.files[0]    第一个file 指定的时候 标签中的id   后面的files[0] 表示获取 选中的第一张文件 对象。File
-            formData.append('up_img_WU_FILE_0', file.files[0]);
+            formData.append('file', file.files[0]);
 
             axios({
                 url: 'http://localhost:9110/upload/uploadFile.shtml',
@@ -138,8 +139,8 @@
             }).then(function (response) {
                 //文件上传成功
                 if(response.data.success){
-                    console.log(response.data.message);
-                    app.image_entity.url=response.data.message;
+                    app.entity.headPic=response.data.message;
+                    alert("上传成功")
                 }else{
                     //上传失败
                     alert(response.data.message);
@@ -163,6 +164,11 @@
             });
         },
         update: function () {
+            var day = this.birthYear+'-'+this.birthMonth+'-'+this.birthDay
+            var dateInput = new Date(day);
+            this.$set(app.entity,'birthday',dateInput);
+            this.$set(app.entity,'district',app.district);
+
             axios.post('/user/update.shtml', this.entity).then(function (response) {
                 console.log(response);
                 if (response.data.success) {
@@ -182,24 +188,45 @@
         //查看用户信息数据回显
         findOne: function () {
             axios.get('/user/findOne.shtml').then(function (response) {
-                //app.entity = response.data;
+                app.entity = response.data;
                 var date = new Date();
                 date.setTime(response.data.birthday);
                 app.birthYear = date.getFullYear();
                 app.birthMonth = date.getMonth()+1;
                 app.birthDay = date.getDate();
-                app.entity.province = response.data.province;
-                app.entity.city = response.data.city;
-                app.entity.district = response.data.district;
+
                 // this.$set(app.entity,'province',response.data.province);
                 // this.$set(app.entity,'city',response.data.city);
                 // this.$set(app.entity,'province',response.data.province);
+                /*$().distpicker('reset', true);
+                $('[data-toggle="distpicker"]').distpicker({
+                    province: app.entity.province,
+                });*/
+                /*$.fn.distpicker.setDefaults = function (options) {
+                    $.extend({
+                        province: '云南省'
+                    }, options);
+                };*/
+
+
 
 
             }).catch(function (error) {
                 console.log("1231312131321");
             }).finally(
+                function address(){
+                    var first=$('[data-toggle="distpicker"]').find('select:first-child');   //获取select框
+                    var second=$('[data-toggle="distpicker"]').find('#city1');
+                    var third=$('[data-toggle="distpicker"]').find('select:last-child');
 
+                    var province = app.entity.province;  //省
+                     var city = app.entity.city;   //市
+                    app.district = app.entity.district;   //区/县
+
+                    first.find('option[value="'+province+'"]').attr("selected","selected").trigger('change');
+                    second.find('option[value="'+city+'"]').attr("selected","selected").trigger('change');
+                    //third.find('option[value="'+district+'"]').attr("selected","selected").trigger('change');
+                }
 
             );
         },

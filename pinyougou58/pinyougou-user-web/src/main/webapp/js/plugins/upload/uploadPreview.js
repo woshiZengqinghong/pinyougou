@@ -86,8 +86,10 @@ var uploadPreview = function(setting) {
 function file_click(){
 	var WARP = document.getElementById('two');
 	var WARP_LI = WARP.getElementsByClassName('new-photo');
-	for(var i=0; i<WARP_LI.length;i++){
+	/*for(var i=0; i<WARP_LI.length;i++){
 		new uploadPreview({ UpBtn: "up_img_WU_FILE_"+i, ImgShow: "imgShow_WU_FILE_"+i});		
-	}
+	}*/
+    new uploadPreview({ UpBtn: "file", ImgShow: "imgShow_WU_FILE_"});
+
 }
 window.onload = file_click;
