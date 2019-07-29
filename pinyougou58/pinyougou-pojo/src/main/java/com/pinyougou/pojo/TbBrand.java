@@ -22,7 +22,22 @@ public class TbBrand implements Serializable {
     @Column(name = "first_char")
     private String firstChar;
 
+    /**
+     * 审核状态
+     */
+    @Column(name="audit_status")
+    private String auditStatus;
+
     private static final long serialVersionUID = 1L;
+
+    public String getAuditStatus() {
+        return auditStatus;
+    }
+
+    public void setAuditStatus(String auditStatus) {
+        this.auditStatus = auditStatus;
+    }
+
 
     /**
      * @return id
